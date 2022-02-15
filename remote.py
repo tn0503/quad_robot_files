@@ -20,7 +20,6 @@ def int_handler(pin):
     global digit
     global rm_code
     global rm_received
-    global test
     global rm_receiving
     rm_receiving = True
 

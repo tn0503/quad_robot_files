@@ -10,7 +10,6 @@ led.value(0)
 remote_in = Pin(28, Pin.IN, Pin.PULL_UP)
 
 # 変数
-rm_receiving = False
 rm_received = False  #信号受信完了した
 digit = 0            #受信データの桁
 rm_state = 0         #信号受信状況
@@ -24,10 +23,7 @@ def int_handler(pin):
     global digit
     global rm_code
     global rm_received
-    global test
-    global rm_receiving
-    rm_receiving = True
-
+    
     if rm_state != 0:
         width = time.ticks_us() - prev_micros    #時間間隔を計算
         if width > 10000:
@@ -75,7 +71,6 @@ while True:
     if rm_received == True:    #リモコン受信した
         print("rm_received")
         rm_received = False    #初期化
-        rm_receiving = False
         rm_state = 0      #初期化
         #図とは左右が逆であることに注意
         custom_code = rm_code & 0xffff   #下16bitがcustomCode

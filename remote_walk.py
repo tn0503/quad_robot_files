@@ -13,6 +13,7 @@ RTRN = 5
 LEFT = 6
 RGHT = 7
 EXILE = 8
+WALK = 9
 
 SV_FREQ = 50.0  # サーボ信号周波数
 MAX_DUTY = 65025.0 # 周期内の分割数
@@ -152,7 +153,6 @@ def int_handler(pin):
     global digit
     global rm_code
     global rm_received
-    global test
     
     if rm_state != 0:
         width = time.ticks_us() - prev_micros    #時間間隔を計算
@@ -255,6 +255,11 @@ while True:
                 action.clear()
                 action = exile.copy()
                 rows = len(exile)
+            elif data_code == 216:
+                action_mode = WALK
+                action.clear()
+                action = walk.copy()
+                rows = len(walk)
                                 
     # *** Servo ***            
     if servo_flag == True:
